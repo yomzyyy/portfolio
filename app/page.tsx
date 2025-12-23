@@ -5,12 +5,29 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Github, Linkedin, Facebook, Instagram, Mail, ExternalLink, Moon, Sun } from "lucide-react";
+import { Github, Linkedin, Facebook, Instagram, Mail, ExternalLink, Moon, Sun, Menu, X } from "lucide-react";
 import { useState, useEffect } from "react";
 import { GlitchText } from "@/components/GlitchText";
 
 export default function Home() {
   const [darkMode, setDarkMode] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [currentSwanImageIndex, setCurrentSwanImageIndex] = useState(0);
+
+  const projectImages = [
+    '/jais-kitchenette/jaiskitchenette.png',
+    '/jais-kitchenette/jaiskitchenette1.png',
+    '/jais-kitchenette/jaiskitchenette2.png',
+    '/jais-kitchenette/jaiskitchenette3.png'
+  ];
+
+  const swanImages = [
+    '/swan-shipping/swan01.png',
+    '/swan-shipping/swan02.png',
+    '/swan-shipping/swan03.png',
+    '/swan-shipping/swan04.png'
+  ];
 
   useEffect(() => {
     if (darkMode) {
@@ -19,6 +36,22 @@ export default function Home() {
       document.documentElement.classList.remove('dark');
     }
   }, [darkMode]);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImageIndex((prev) => (prev + 1) % projectImages.length);
+    }, 3000); // Change image every 3 seconds
+
+    return () => clearInterval(interval);
+  }, [projectImages.length]);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentSwanImageIndex((prev) => (prev + 1) % swanImages.length);
+    }, 3000); // Change image every 3 seconds
+
+    return () => clearInterval(interval);
+  }, [swanImages.length]);
 
   const techStack = {
     all: ["React", "Next.js", "Node.js", "Express.js", "MongoDB", "Supabase", "Vercel", "Git", "JavaScript", "TypeScript", "Firebase", "Tailwind CSS"],
@@ -60,25 +93,34 @@ export default function Home() {
 
   const projects = [
     {
-      title: "E-commerce PWA",
-      description: "High-performance Progressive Web App with offline capabilities",
-      performanceMetrics: {
-        performance: 98,
-        accessibility: 100,
-        seo: 100
-      },
+      title: "Restaurant Management & Ordering System",
+      description: "Full-stack web application for restaurant operations featuring real-time inventory tracking, order management, and customer ordering portal with integrated authentication and admin controls.",
+      techStack: [
+        { name: "Next.js", color: "blue" },
+        { name: "MongoDB", color: "green" },
+        { name: "Express.js", color: "purple" },
+        { name: "Tailwind CSS", color: "cyan" }
+      ],
+    
       technicalImplementation: [
-        "Service Worker implementation",
-        "IndexedDB for offline data",
-        "Streaming SSR",
-        "Dynamic code splitting"
+        "Next.js 15 (React + TypeScript) with Server-Side Rendering and Turbopack for optimized performance",
+        "Express.js REST API with MongoDB/Mongoose for scalable data persistence and GridFS for image storage",
+        "Admin dashboard with real-time stock management, product catalog controls, and order workflow automation",
+        "Advanced inventory system with low-stock alerts, expiration tracking, and batch adjustment capabilities",
+        "Senior citizen discount verification system with document upload and approval workflow"
       ],
       image: "/project1.jpg",
-      link: "#"
+      link: "https://www.jaiskitchenette.shop/"
     },
     {
-      title: "Real-time Collaboration Platform",
-      description: "WebSocket-based platform with conflict resolution",
+      title: "SWAN Shipping Management System",
+      description: "Full-stack web application for maritime shipping operations featuring comprehensive admin CMS, dynamic content management, and public-facing website with hero carousel, news articles, fleet showcase, and career portal integration.",
+      techStack: [
+        { name: "Next.js", color: "blue" },
+        { name: "MongoDB", color: "green" },
+        { name: "Express.js", color: "purple" },
+        { name: "Tailwind CSS", color: "cyan" }
+      ],
       performanceMetrics: {
         performance: 95,
         accessibility: 98,
@@ -97,22 +139,10 @@ export default function Home() {
 
   const experiences = [
     {
-      title: "Senior Full Stack Developer",
-      company: "Tech Company Inc.",
-      period: "2022 - Present",
-      description: "Leading development of enterprise applications"
-    },
-    {
-      title: "Frontend Developer",
-      company: "Digital Agency",
-      period: "2020 - 2022",
-      description: "Built responsive web applications for clients"
-    },
-    {
-      title: "Junior Developer",
-      company: "Startup Co.",
-      period: "2019 - 2020",
-      description: "Developed and maintained company websites"
+      title: "Freelance Web Developer",
+      company: "Self-Employed",
+      period: "November 2024 - Present",
+      description: "Developing full-stack web applications for clients including restaurant management systems, shipping company websites with CMS integration, and custom business solutions using Next.js, MongoDB, Express.js, and modern web technologies"
     }
   ];
 
@@ -121,29 +151,82 @@ export default function Home() {
 
       {/* Navigation Bar */}
       <nav className="sticky top-0 z-50 bg-white/80 dark:bg-black/80 backdrop-blur-md border-b border-zinc-200 dark:border-zinc-800">
-        <div className="mx-auto max-w-6xl px-6 py-4 flex items-center justify-between">
-          <a href="#" className="text-xl font-bold text-black dark:text-white cursor-pointer hover:opacity-80 transition-opacity">
-            Jerome
-          </a>
-          <div className="flex items-center gap-8">
-            <a href="#tech-stack" className="text-sm font-medium text-zinc-600 dark:text-zinc-400 hover:text-black dark:hover:text-white transition-colors">
-              Tech Stack
+        <div className="relative mx-auto max-w-6xl px-6 py-4">
+          <div className="flex items-center justify-between">
+            <a href="#" className="text-xl font-bold text-black dark:text-white cursor-pointer hover:opacity-80 transition-opacity">
+              Jerome
             </a>
-            <a href="#featured-projects" className="text-sm font-medium text-zinc-600 dark:text-zinc-400 hover:text-black dark:hover:text-white transition-colors">
-              Featured Projects
-            </a>
-            <a href="#get-in-touch" className="text-sm font-medium text-zinc-600 dark:text-zinc-400 hover:text-black dark:hover:text-white transition-colors">
-              Get in Touch
-            </a>
-            <Button
-              variant="outline"
-              size="icon"
-              onClick={() => setDarkMode(!darkMode)}
-              className="rounded-full"
-            >
-              {darkMode ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
-            </Button>
+
+            {/* Desktop Navigation */}
+            <div className="hidden md:flex items-center gap-8">
+              <a href="#tech-stack" className="text-sm font-medium text-zinc-600 dark:text-zinc-400 hover:text-black dark:hover:text-white transition-colors">
+                Tech Stack
+              </a>
+              <a href="#featured-projects" className="text-sm font-medium text-zinc-600 dark:text-zinc-400 hover:text-black dark:hover:text-white transition-colors">
+                Featured Projects
+              </a>
+              <a href="#get-in-touch" className="text-sm font-medium text-zinc-600 dark:text-zinc-400 hover:text-black dark:hover:text-white transition-colors">
+                Get in Touch
+              </a>
+              <Button
+                variant="outline"
+                size="icon"
+                onClick={() => setDarkMode(!darkMode)}
+                className="rounded-full"
+              >
+                {darkMode ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
+              </Button>
+            </div>
+
+            {/* Mobile Menu Button */}
+            <div className="flex md:hidden items-center gap-2">
+              <Button
+                variant="outline"
+                size="icon"
+                onClick={() => setDarkMode(!darkMode)}
+                className="rounded-full"
+              >
+                {darkMode ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
+              </Button>
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                className="rounded-full"
+              >
+                {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+              </Button>
+            </div>
           </div>
+
+          {/* Mobile Menu */}
+          {mobileMenuOpen && (
+            <div className="absolute top-full left-0 right-0 md:hidden bg-white/95 dark:bg-black/95 backdrop-blur-md border-b border-zinc-200 dark:border-zinc-800 shadow-lg">
+              <div className="mx-auto max-w-6xl px-6 py-4 space-y-4">
+                <a
+                  href="#tech-stack"
+                  className="block text-sm font-medium text-zinc-600 dark:text-zinc-400 hover:text-black dark:hover:text-white transition-colors"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  Tech Stack
+                </a>
+                <a
+                  href="#featured-projects"
+                  className="block text-sm font-medium text-zinc-600 dark:text-zinc-400 hover:text-black dark:hover:text-white transition-colors"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  Featured Projects
+                </a>
+                <a
+                  href="#get-in-touch"
+                  className="block text-sm font-medium text-zinc-600 dark:text-zinc-400 hover:text-black dark:hover:text-white transition-colors"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  Get in Touch
+                </a>
+              </div>
+            </div>
+          )}
         </div>
       </nav>
 
@@ -180,30 +263,6 @@ export default function Home() {
                 Crafting end-to-end web solutions that stay fast, scalable, and responsive in real time.
               </p>
             </div>
-
-            {/* Social Links */}
-            <div className="flex gap-3 flex-wrap justify-center md:justify-start">
-              <a href="https://github.com/yomzyyy" target="_blank" rel="noopener noreferrer">
-                <Button variant="outline" size="icon" className="hover:scale-110 transition-transform" aria-label="GitHub Profile">
-                  <Github className="h-5 w-5" />
-                </Button>
-              </a>
-              <a href="https://www.linkedin.com/in/magbanuajerome/" target="_blank" rel="noopener noreferrer">
-                <Button variant="outline" size="icon" className="hover:scale-110 transition-transform" aria-label="LinkedIn Profile">
-                  <Linkedin className="h-5 w-5" />
-                </Button>
-              </a>
-              <a href="https://www.facebook.com/MaelStrong.18" target="_blank" rel="noopener noreferrer">
-                <Button variant="outline" size="icon" className="hover:scale-110 transition-transform" aria-label="Facebook Profile">
-                  <Facebook className="h-5 w-5" />
-                </Button>
-              </a>
-              <a href="https://www.instagram.com/yomz.ej/" target="_blank" rel="noopener noreferrer">
-                <Button variant="outline" size="icon" className="hover:scale-110 transition-transform" aria-label="Instagram Profile">
-                  <Instagram className="h-5 w-5" />
-                </Button>
-              </a>
-            </div>
           </div>
         </section>
 
@@ -211,12 +270,12 @@ export default function Home() {
         <section id="tech-stack" className="space-y-6">
           <h2 className="text-3xl font-bold text-black dark:text-white">Tech Stack</h2>
           <Tabs defaultValue="all" className="w-full">
-            <TabsList className="grid w-full grid-cols-5">
-              <TabsTrigger value="all">All</TabsTrigger>
-              <TabsTrigger value="frontend">Frontend</TabsTrigger>
-              <TabsTrigger value="backend">Backend</TabsTrigger>
-              <TabsTrigger value="database">Database</TabsTrigger>
-              <TabsTrigger value="tools">Tools</TabsTrigger>
+            <TabsList className="grid w-full grid-cols-5 h-auto">
+              <TabsTrigger value="all" className="text-xs sm:text-sm px-2 py-2">All</TabsTrigger>
+              <TabsTrigger value="frontend" className="text-xs sm:text-sm px-2 py-2">Frontend</TabsTrigger>
+              <TabsTrigger value="backend" className="text-xs sm:text-sm px-2 py-2">Backend</TabsTrigger>
+              <TabsTrigger value="database" className="text-xs sm:text-sm px-2 py-2">Database</TabsTrigger>
+              <TabsTrigger value="tools" className="text-xs sm:text-sm px-2 py-2">Tools</TabsTrigger>
             </TabsList>
             {Object.entries(techStack).map(([key, technologies]) => (
               <TabsContent key={key} value={key} className="space-y-4 animate-fadeIn">
@@ -256,55 +315,130 @@ export default function Home() {
 
  
         <section id="featured-projects" className="space-y-8">
-          <h2 className="text-3xl font-bold text-center text-black dark:text-white">Featured Projects</h2>
+          <h2 className="text-3xl font-bold text-black dark:text-white">Featured Projects</h2>
           <div className="space-y-12">
             {projects.map((project, index) => (
               <div
                 key={project.title}
-                className="bg-white dark:bg-zinc-900 rounded-2xl shadow-lg overflow-hidden"
+                className="bg-white dark:bg-zinc-900 rounded-2xl border border-zinc-200 dark:border-zinc-800 shadow-lg overflow-hidden h-full transition-all duration-300 hover:shadow-2xl hover:-translate-y-2"
               >
-                <div className="grid md:grid-cols-2 gap-0">
+                <div className="grid md:grid-cols-2 gap-0 min-h-[400px]">
                   {/* Left Column - Content */}
-                  <div className="p-8 md:p-12 space-y-6">
-                    <div>
-                      <h3 className="text-3xl md:text-4xl font-bold text-black dark:text-white mb-3">
-                        {project.title}
-                      </h3>
-                      <p className="text-zinc-600 dark:text-zinc-400 text-base">
-                        {project.description}
-                      </p>
-                    </div>
+                  <div className="relative p-6 md:p-8 pb-12 md:pb-16 space-y-4 flex items-start pt-8 md:pt-12">
+                    <div className="space-y-4">
+                      <div>
+                        <h3 className="text-2xl md:text-3xl font-bold text-black dark:text-white mb-6 md:mb-8">
+                          {project.title}
+                        </h3>
+                        <p className="text-zinc-600 dark:text-zinc-400 text-sm md:text-base leading-relaxed">
+                          {project.description}
+                        </p>
+                      </div>
 
-                    {/* Technical Implementation */}
-                    <div className="space-y-4 pt-4">
-                      <h4 className="text-sm font-semibold text-black dark:text-white uppercase tracking-wide">
-                        Technical Implementation
-                      </h4>
-                      <ul className="space-y-3">
-                        {project.technicalImplementation.map((item, idx) => (
-                          <li key={idx} className="flex items-start gap-3 text-zinc-600 dark:text-zinc-300">
-                            <span className="text-blue-600 dark:text-blue-400 mt-1 flex-shrink-0">▸</span>
-                            <span className="leading-relaxed">{item}</span>
-                          </li>
-                        ))}
-                      </ul>
+                      {/* Tech Stack Badges */}
+                      <div className="flex flex-wrap gap-2 pt-2">
+                        {project.techStack.map((tech) => {
+                          const colorClasses: Record<string, string> = {
+                            blue: "bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300",
+                            green: "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-300",
+                            purple: "bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-300",
+                            cyan: "bg-cyan-100 text-cyan-700 dark:bg-cyan-900/30 dark:text-cyan-300",
+                            red: "bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-300"
+                          };
+                          return (
+                            <span
+                              key={tech.name}
+                              className={`px-3 py-1 text-xs font-medium rounded-full ${colorClasses[tech.color]}`}
+                            >
+                              {tech.name}
+                            </span>
+                          );
+                        })}
+                      </div>
                     </div>
                   </div>
 
                   {/* Right Column - Image/Screenshot */}
-                  <div className="relative bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 dark:from-zinc-800 dark:via-zinc-800 dark:to-zinc-800 p-8 md:p-12 flex items-center justify-center min-h-[400px]">
-                    <div className="relative w-full h-full max-h-[500px] bg-zinc-900 dark:bg-zinc-950 rounded-xl shadow-2xl overflow-hidden">
-                      {/* Gradient overlay for modern look */}
-                      <div className="absolute inset-0 bg-gradient-to-br from-blue-500/20 via-purple-500/20 to-pink-500/20 dark:from-blue-500/10 dark:via-purple-500/10 dark:to-pink-500/10"></div>
-
-                      {/* Code screenshot placeholder */}
-                      <div className="relative w-full h-full flex items-center justify-center p-8 backdrop-blur-sm">
-                        <div className="text-center space-y-3">
-                          <code className="text-blue-400 dark:text-blue-300 text-sm font-mono block">// Project Screenshot</code>
-                          <code className="text-zinc-400 dark:text-zinc-500 text-xs font-mono block">Add your code screenshot here</code>
-                        </div>
+                  <div className="group relative w-full h-full bg-zinc-900 dark:bg-zinc-950 overflow-hidden flex items-center justify-center">
+                    {index === 0 ? (
+                      // First project - Jai's Kitchenette rotating images
+                      <div className="relative w-full h-full">
+                        <img
+                          src={projectImages[currentImageIndex]}
+                          alt={`${project.title} screenshot ${currentImageIndex + 1}`}
+                          className="w-full h-full object-cover transition-opacity duration-500"
+                        />
+                        {/* Visit Site button */}
+                        <a
+                          href={project.link}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="absolute top-4 right-4 z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                        >
+                          <Button
+                            variant="outline"
+                            className="bg-white/90 dark:bg-zinc-900/90 backdrop-blur-sm hover:bg-white dark:hover:bg-zinc-900 shadow-lg"
+                          >
+                            <ExternalLink className="mr-2 h-4 w-4" />
+                            Visit Site
+                          </Button>
+                        </a>
                       </div>
-                    </div>
+                    ) : index === 1 ? (
+                      // Second project - SWAN Shipping rotating images
+                      <div className="relative w-full h-full">
+                        <img
+                          src={swanImages[currentSwanImageIndex]}
+                          alt={`${project.title} screenshot ${currentSwanImageIndex + 1}`}
+                          className="w-full h-full object-cover transition-opacity duration-500"
+                        />
+                        {/* Visit Site button */}
+                        <a
+                          href={project.link}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="absolute top-4 right-4 z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                        >
+                          <Button
+                            variant="outline"
+                            className="bg-white/90 dark:bg-zinc-900/90 backdrop-blur-sm hover:bg-white dark:hover:bg-zinc-900 shadow-lg"
+                          >
+                            <ExternalLink className="mr-2 h-4 w-4" />
+                            Visit Site
+                          </Button>
+                        </a>
+                      </div>
+                    ) : (
+                      // Other projects - placeholder
+                      <>
+                        {/* Gradient overlay for modern look */}
+                        <div className="absolute inset-0 bg-gradient-to-br from-blue-500/20 via-purple-500/20 to-pink-500/20 dark:from-blue-500/10 dark:via-purple-500/10 dark:to-pink-500/10"></div>
+
+                        {/* Code screenshot placeholder */}
+                        <div className="relative w-full h-full flex items-center justify-center p-8 backdrop-blur-sm">
+                          <div className="text-center space-y-3">
+                            <code className="text-blue-400 dark:text-blue-300 text-sm font-mono block">// Project Screenshot</code>
+                            <code className="text-zinc-400 dark:text-zinc-500 text-xs font-mono block">Add your code screenshot here</code>
+                          </div>
+                        </div>
+
+                        {/* Visit Site button */}
+                        <a
+                          href={project.link}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="absolute top-4 right-4 z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                        >
+                          <Button
+                            variant="outline"
+                            className="bg-white/90 dark:bg-zinc-900/90 backdrop-blur-sm hover:bg-white dark:hover:bg-zinc-900 shadow-lg"
+                          >
+                            <ExternalLink className="mr-2 h-4 w-4" />
+                            Visit Site
+                          </Button>
+                        </a>
+                      </>
+                    )}
                   </div>
                 </div>
               </div>
@@ -333,50 +467,37 @@ export default function Home() {
 
         <section id="get-in-touch" className="space-y-6">
           <h2 className="text-3xl font-bold text-black dark:text-white">Get in Touch</h2>
-          <div className="grid md:grid-cols-2 gap-6">
-            <Card>
-              <CardContent className="pt-6">
-                <form className="space-y-4">
-                  <div className="space-y-2">
-                    <label htmlFor="name" className="text-sm font-medium">
-                      Name
-                    </label>
-                    <Input id="name" placeholder="Your name" />
-                  </div>
-                  <div className="space-y-2">
-                    <label htmlFor="email" className="text-sm font-medium">
-                      Email
-                    </label>
-                    <Input id="email" type="email" placeholder="your.email@example.com" />
-                  </div>
-                  <div className="space-y-2">
-                    <label htmlFor="message" className="text-sm font-medium">
-                      Message
-                    </label>
-                    <Textarea id="message" placeholder="Your message..." rows={5} />
-                  </div>
-                  <Button type="submit" className="w-full">
-                    <Mail className="mr-2 h-4 w-4" />
-                    Send Message
-                  </Button>
-                </form>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardContent className="pt-6 space-y-6">
-                <div>
-                  <h3 className="text-lg font-semibold text-black dark:text-white mb-2">Request Resume</h3>
-                  <p className="text-sm text-zinc-600 dark:text-zinc-400 mb-4">
-                    Interested in my work? Download my resume to learn more about my experience and skills.
-                  </p>
-                  <Button size="lg" className="w-full">
-                    Download Resume
-                  </Button>
+          <Card>
+            <CardContent className="pt-6">
+              <form className="space-y-4">
+                <div className="space-y-2">
+                  <label htmlFor="name" className="text-sm font-medium">
+                    Name
+                  </label>
+                  <Input id="name" placeholder="Your name" />
                 </div>
-              </CardContent>
-            </Card>
-          </div>
+                <div className="space-y-2">
+                  <label htmlFor="email" className="text-sm font-medium">
+                    Email
+                  </label>
+                  <Input id="email" type="email" placeholder="your.email@example.com" />
+                </div>
+                <div className="space-y-2">
+                  <label htmlFor="message" className="text-sm font-medium">
+                    Message
+                  </label>
+                  <Textarea id="message" placeholder="Your message..." rows={5} />
+                </div>
+                <Button type="submit" className="w-full">
+                  <Mail className="mr-2 h-4 w-4" />
+                  Send Message
+                </Button>
+                <Button variant="outline" className="w-full">
+                  Download Resume
+                </Button>
+              </form>
+            </CardContent>
+          </Card>
         </section>
       </main>
 
