@@ -116,10 +116,10 @@ export default function Home() {
       title: "SWAN Shipping Management System",
       description: "Full-stack web application for maritime shipping operations featuring comprehensive admin CMS, dynamic content management, and public-facing website with hero carousel, news articles, fleet showcase, and career portal integration.",
       techStack: [
-        { name: "Next.js", color: "blue" },
         { name: "MongoDB", color: "green" },
         { name: "Express.js", color: "purple" },
-        { name: "Tailwind CSS", color: "cyan" }
+        { name: "React", color: "blue" },
+        { name: "Node.js", color: "green" }
       ],
       performanceMetrics: {
         performance: 95,
@@ -141,7 +141,7 @@ export default function Home() {
     {
       title: "Freelance Web Developer",
       company: "Self-Employed",
-      period: "November 2024 - Present",
+      period: "November 2025 - Present",
       description: "Developing full-stack web applications for clients including restaurant management systems, shipping company websites with CMS integration, and custom business solutions using Next.js, MongoDB, Express.js, and modern web technologies"
     }
   ];
