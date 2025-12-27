@@ -5,11 +5,12 @@ A modern, responsive portfolio website showcasing my work as a Full-Stack Develo
 ## Features
 
 - **Responsive Design** - Seamlessly adapts to all device sizes
-- **Dark Mode Support** - Toggle between light and dark themes with smooth transitions
+- **Dark Mode by Default** - Starts in dark mode with no flash, toggle between themes with smooth transitions
+- **Seasonal Snowfall Effect** - Festive snowfall animation (Nov-Feb) with theme-aware colors and toggle control
 - **Interactive Tech Stack** - Filterable technology showcase with smooth animations
 - **Project Gallery** - Showcase of personal projects with descriptions and tech tags
 - **Experience Timeline** - Professional experience displayed in an elegant timeline
-- **Contact Form** - Get in touch section for networking opportunities
+- **Enterprise-Grade Contact Form** - Professional email integration with rate limiting, validation, and auto-reply
 - **Smooth Animations** - Polished fade-in and hover effects throughout
 - **Modern UI Components** - Built with Radix UI primitives for accessibility
 
@@ -25,6 +26,13 @@ A modern, responsive portfolio website showcasing my work as a Full-Stack Develo
 - **Radix UI** - Accessible component primitives
 - **Lucide React** - Beautiful icon library
 - **tw-animate-css** - CSS animations for Tailwind
+- **react-snowfall** - Canvas-based snowfall animation
+
+### Backend & Email
+- **Resend** - Professional email service for contact form
+- **Zod** - TypeScript-first schema validation
+- **Sonner** - Toast notifications
+- **@react-email/render** - React components to HTML emails
 
 ### Code Quality
 - **ESLint** - Code linting and formatting
@@ -53,7 +61,21 @@ yarn install
 pnpm install
 ```
 
-3. Run the development server
+3. Set up environment variables
+```bash
+cp .env.example .env.local
+```
+
+Edit `.env.local` with your values:
+```env
+RESEND_API_KEY=your_resend_api_key_here
+RESEND_FROM_EMAIL=noreply@yourdomain.com
+RESEND_TO_EMAIL=your.email@example.com
+NEXT_PUBLIC_SITE_URL=http://localhost:3000
+NEXT_PUBLIC_SITE_NAME=Your Site Name
+```
+
+4. Run the development server
 ```bash
 npm run dev
 # or
@@ -62,7 +84,7 @@ yarn dev
 pnpm dev
 ```
 
-4. Open [http://localhost:3000](http://localhost:3000) in your browser
+5. Open [http://localhost:3000](http://localhost:3000) in your browser
 
 ### Build for Production
 
@@ -163,6 +185,52 @@ Modify the `experiences` array in `app/page.tsx`.
 - Firefox (latest)
 - Safari (latest)
 - Edge (latest)
+
+## Deployment
+
+### Deploy to Vercel (Recommended)
+
+1. Push your code to GitHub
+```bash
+git add .
+git commit -m "Initial commit"
+git push origin main
+```
+
+2. Import your repository in Vercel
+   - Go to [vercel.com](https://vercel.com)
+   - Click "Add New Project"
+   - Import your GitHub repository
+
+3. Configure environment variables in Vercel
+   - Go to Project Settings → Environment Variables
+   - Add the following variables:
+     - `RESEND_API_KEY` - Your Resend API key
+     - `RESEND_FROM_EMAIL` - Your sender email (e.g., noreply@yourdomain.com)
+     - `RESEND_TO_EMAIL` - Your email to receive contact form submissions
+     - `NEXT_PUBLIC_SITE_URL` - Your production URL (e.g., https://yourdomain.com)
+     - `NEXT_PUBLIC_SITE_NAME` - Your site name
+
+4. Deploy
+   - Vercel will automatically deploy on every push to main branch
+
+### Setting up Resend Email Service
+
+1. Sign up at [resend.com](https://resend.com)
+2. Verify your email address
+3. Create an API key in the dashboard
+4. For development: Use `onboarding@resend.dev` as RESEND_FROM_EMAIL
+5. For production: Verify your custom domain
+   - Add your domain in Resend dashboard
+   - Add DNS records (MX, TXT, DKIM, SPF) to your DNS provider
+   - Update RESEND_FROM_EMAIL to use your domain (e.g., noreply@yourdomain.com)
+
+### Environment Variables Security
+
+- `.env.local` is automatically ignored by git (see `.gitignore`)
+- Never commit API keys or secrets to the repository
+- Use Vercel's environment variables for production
+- `.env.example` contains safe placeholder values
 
 ## Contact
 

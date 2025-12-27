@@ -2,15 +2,18 @@
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Github, Linkedin, Facebook, Instagram, Mail, ExternalLink, Moon, Sun, Menu, X } from "lucide-react";
+import { Github, Linkedin, Facebook, Instagram, ExternalLink, Moon, Sun, Menu, X, Download, Snowflake } from "lucide-react";
 import { useState, useEffect } from "react";
 import { GlitchText } from "@/components/GlitchText";
+import { ContactForm } from "@/components/ContactForm";
+import { Snowfall } from "@/components/Snowfall";
+import { useTheme } from "@/lib/hooks/useTheme";
+import { useSnowfall } from "@/lib/hooks/useSnowfall";
 
 export default function Home() {
-  const [darkMode, setDarkMode] = useState(false);
+  const { isDark, toggleTheme } = useTheme();
+  const { enabled: snowfallEnabled, toggleSnowfall } = useSnowfall();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [currentSwanImageIndex, setCurrentSwanImageIndex] = useState(0);
@@ -28,14 +31,6 @@ export default function Home() {
     '/swan-shipping/swan03.png',
     '/swan-shipping/swan04.png'
   ];
-
-  useEffect(() => {
-    if (darkMode) {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-    }
-  }, [darkMode]);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -119,18 +114,7 @@ export default function Home() {
         { name: "MongoDB", color: "green" },
         { name: "Express.js", color: "purple" },
         { name: "React", color: "blue" },
-        { name: "Node.js", color: "green" }
-      ],
-      performanceMetrics: {
-        performance: 95,
-        accessibility: 98,
-        seo: 100
-      },
-      technicalImplementation: [
-        "WebSocket optimization",
-        "CRDT implementation",
-        "Custom state management",
-        "WebRTC integration"
+        { name: "Node.js", color: "green"  }
       ],
       image: "/project2.jpg",
       link: "#"
@@ -148,8 +132,8 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-white dark:bg-black">
+      <Snowfall enabled={snowfallEnabled} isDarkMode={isDark} />
 
-      {/* Navigation Bar */}
       <nav className="sticky top-0 z-50 bg-white/80 dark:bg-black/80 backdrop-blur-md border-b border-zinc-200 dark:border-zinc-800">
         <div className="relative mx-auto max-w-6xl px-6 py-4">
           <div className="flex items-center justify-between">
@@ -157,7 +141,6 @@ export default function Home() {
               Jerome
             </a>
 
-            {/* Desktop Navigation */}
             <div className="hidden md:flex items-center gap-8">
               <a href="#tech-stack" className="text-sm font-medium text-zinc-600 dark:text-zinc-400 hover:text-black dark:hover:text-white transition-colors">
                 Tech Stack
@@ -168,25 +151,54 @@ export default function Home() {
               <a href="#get-in-touch" className="text-sm font-medium text-zinc-600 dark:text-zinc-400 hover:text-black dark:hover:text-white transition-colors">
                 Get in Touch
               </a>
-              <Button
-                variant="outline"
-                size="icon"
-                onClick={() => setDarkMode(!darkMode)}
-                className="rounded-full"
-              >
-                {darkMode ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
-              </Button>
+              <div className="flex items-center gap-2">
+                <Button
+                  variant="outline"
+                  size="icon"
+                  onClick={toggleTheme}
+                  className="rounded-full"
+                  aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
+                >
+                  {isDark ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
+                </Button>
+                <Button
+                  variant="outline"
+                  size="icon"
+                  onClick={toggleSnowfall}
+                  className="rounded-full"
+                  aria-label={snowfallEnabled ? "Disable snowfall" : "Enable snowfall"}
+                >
+                  <Snowflake className={`h-5 w-5 transition-colors ${
+                    snowfallEnabled
+                      ? "text-blue-500 dark:text-blue-400"
+                      : "text-zinc-400 dark:text-zinc-600"
+                  }`} />
+                </Button>
+              </div>
             </div>
 
-            {/* Mobile Menu Button */}
             <div className="flex md:hidden items-center gap-2">
               <Button
                 variant="outline"
                 size="icon"
-                onClick={() => setDarkMode(!darkMode)}
+                onClick={toggleTheme}
                 className="rounded-full"
+                aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
               >
-                {darkMode ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
+                {isDark ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
+              </Button>
+              <Button
+                variant="outline"
+                size="icon"
+                onClick={toggleSnowfall}
+                className="rounded-full"
+                aria-label={snowfallEnabled ? "Disable snowfall" : "Enable snowfall"}
+              >
+                <Snowflake className={`h-5 w-5 transition-colors ${
+                  snowfallEnabled
+                    ? "text-blue-500 dark:text-blue-400"
+                    : "text-zinc-400 dark:text-zinc-600"
+                }`} />
               </Button>
               <Button
                 variant="ghost"
@@ -199,7 +211,6 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Mobile Menu */}
           {mobileMenuOpen && (
             <div className="absolute top-full left-0 right-0 md:hidden bg-white/95 dark:bg-black/95 backdrop-blur-md border-b border-zinc-200 dark:border-zinc-800 shadow-lg">
               <div className="mx-auto max-w-6xl px-6 py-4 space-y-4">
@@ -230,9 +241,9 @@ export default function Home() {
         </div>
       </nav>
 
-      <main className="mx-auto max-w-6xl px-6 py-16 space-y-24">
-        <section className="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-16 xl:gap-24 items-center min-h-[85vh] md:min-h-[90vh] py-20 md:py-24 lg:py-32">
-          {/* LEFT COLUMN - Profile Image */}
+      <main className="mx-auto max-w-6xl px-6 space-y-24">
+        <section className="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-16 xl:gap-24 items-center justify-center min-h-screen -mt-20 py-8">
+
           <div className="relative mx-auto md:mx-0 order-1 md:order-none animate-fadeIn">
             <div className="w-56 h-56 sm:w-64 sm:h-64 md:w-72 md:h-72 lg:w-80 lg:h-80 rounded-full overflow-hidden border-2 border-zinc-200/80 dark:border-zinc-700/80 shadow-xl shadow-zinc-200/50 dark:shadow-zinc-900/50 ring-1 ring-zinc-100 dark:ring-zinc-800 transition-transform duration-500 hover:scale-105">
               <img
@@ -243,9 +254,9 @@ export default function Home() {
             </div>
           </div>
 
-          {/* RIGHT COLUMN - Text Content */}
+
           <div className="space-y-8 md:space-y-10 text-center md:text-left order-2 md:order-none animate-fadeIn" style={{ animationDelay: '150ms' }}>
-            {/* Name with Glitch Effect */}
+
             <div className="space-y-2">
               <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tight leading-tight text-black dark:text-white">
                 Ernest{" "}
@@ -254,7 +265,6 @@ export default function Home() {
               </h1>
             </div>
 
-            {/* Subtitle and Description */}
             <div className="space-y-3">
               <p className="text-xl md:text-2xl text-zinc-600 dark:text-zinc-400 font-medium">
                 Full-Stack Developer
@@ -323,7 +333,7 @@ export default function Home() {
                 className="bg-white dark:bg-zinc-900 rounded-2xl border border-zinc-200 dark:border-zinc-800 shadow-lg overflow-hidden h-full transition-all duration-300 hover:shadow-2xl hover:-translate-y-2"
               >
                 <div className="grid md:grid-cols-2 gap-0 min-h-[400px]">
-                  {/* Left Column - Content */}
+
                   <div className="relative p-6 md:p-8 pb-12 md:pb-16 space-y-4 flex items-start pt-8 md:pt-12">
                     <div className="space-y-4">
                       <div>
@@ -335,7 +345,6 @@ export default function Home() {
                         </p>
                       </div>
 
-                      {/* Tech Stack Badges */}
                       <div className="flex flex-wrap gap-2 pt-2">
                         {project.techStack.map((tech) => {
                           const colorClasses: Record<string, string> = {
@@ -358,17 +367,16 @@ export default function Home() {
                     </div>
                   </div>
 
-                  {/* Right Column - Image/Screenshot */}
                   <div className="group relative w-full h-full bg-zinc-900 dark:bg-zinc-950 overflow-hidden flex items-center justify-center">
                     {index === 0 ? (
-                      // First project - Jai's Kitchenette rotating images
+
                       <div className="relative w-full h-full">
                         <img
                           src={projectImages[currentImageIndex]}
                           alt={`${project.title} screenshot ${currentImageIndex + 1}`}
                           className="w-full h-full object-cover transition-opacity duration-500"
                         />
-                        {/* Visit Site button */}
+
                         <a
                           href={project.link}
                           target="_blank"
@@ -385,14 +393,14 @@ export default function Home() {
                         </a>
                       </div>
                     ) : index === 1 ? (
-                      // Second project - SWAN Shipping rotating images
+
                       <div className="relative w-full h-full">
                         <img
                           src={swanImages[currentSwanImageIndex]}
                           alt={`${project.title} screenshot ${currentSwanImageIndex + 1}`}
                           className="w-full h-full object-cover transition-opacity duration-500"
                         />
-                        {/* Visit Site button */}
+
                         <a
                           href={project.link}
                           target="_blank"
@@ -469,33 +477,13 @@ export default function Home() {
           <h2 className="text-3xl font-bold text-black dark:text-white">Get in Touch</h2>
           <Card>
             <CardContent className="pt-6">
-              <form className="space-y-4">
-                <div className="space-y-2">
-                  <label htmlFor="name" className="text-sm font-medium">
-                    Name
-                  </label>
-                  <Input id="name" placeholder="Your name" />
-                </div>
-                <div className="space-y-2">
-                  <label htmlFor="email" className="text-sm font-medium">
-                    Email
-                  </label>
-                  <Input id="email" type="email" placeholder="your.email@example.com" />
-                </div>
-                <div className="space-y-2">
-                  <label htmlFor="message" className="text-sm font-medium">
-                    Message
-                  </label>
-                  <Textarea id="message" placeholder="Your message..." rows={5} />
-                </div>
-                <Button type="submit" className="w-full">
-                  <Mail className="mr-2 h-4 w-4" />
-                  Send Message
-                </Button>
-                <Button variant="outline" className="w-full">
+              <ContactForm />
+              <a href="/Jerome_Magbanua_Resume.pdf" download="Jerome_Magbanua_Resume.pdf">
+                <Button variant="outline" className="w-full mt-4">
+                  <Download className="mr-2 h-4 w-4" />
                   Download Resume
                 </Button>
-              </form>
+              </a>
             </CardContent>
           </Card>
         </section>
