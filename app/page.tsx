@@ -260,8 +260,9 @@ export default function Home() {
             <div className="space-y-2">
               <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tight leading-tight text-black dark:text-white">
                 Ernest{" "}
-                <GlitchText text="Jerome" />
-                {" "}M. Magbanua
+                <GlitchText text="Jerome" alternateText="Yom" />
+                <br />
+                M. Magbanua
               </h1>
             </div>
 
@@ -419,10 +420,8 @@ export default function Home() {
                     ) : (
                       // Other projects - placeholder
                       <>
-                        {/* Gradient overlay for modern look */}
                         <div className="absolute inset-0 bg-gradient-to-br from-blue-500/20 via-purple-500/20 to-pink-500/20 dark:from-blue-500/10 dark:via-purple-500/10 dark:to-pink-500/10"></div>
 
-                        {/* Code screenshot placeholder */}
                         <div className="relative w-full h-full flex items-center justify-center p-8 backdrop-blur-sm">
                           <div className="text-center space-y-3">
                             <code className="text-blue-400 dark:text-blue-300 text-sm font-mono block">// Project Screenshot</code>
@@ -430,7 +429,6 @@ export default function Home() {
                           </div>
                         </div>
 
-                        {/* Visit Site button */}
                         <a
                           href={project.link}
                           target="_blank"
@@ -492,7 +490,7 @@ export default function Home() {
       <footer className="border-t border-zinc-200 dark:border-zinc-800 mt-24">
         <div className="mx-auto max-w-6xl px-6 py-8">
           <div className="flex flex-col items-center gap-4">
-            {/* Social Links */}
+           
             <div className="flex gap-3">
               <a href="https://github.com/yomzyyy" target="_blank" rel="noopener noreferrer">
                 <Button variant="outline" size="icon" className="hover:scale-110 transition-transform" aria-label="GitHub">
@@ -516,7 +514,7 @@ export default function Home() {
               </a>
             </div>
 
-            {/* Copyright */}
+            
             <div className="text-xs text-zinc-600 dark:text-zinc-400">
               &copy; 2025 Jerome Magbanua. All rights reserved.
             </div>

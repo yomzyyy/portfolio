@@ -4,13 +4,15 @@ import { useEffect, useState } from "react";
 
 interface GlitchTextProps {
   text: string;
+  alternateText?: string;
   className?: string;
 }
 
-export function GlitchText({ text, className = "" }: GlitchTextProps) {
+export function GlitchText({ text, alternateText, className = "" }: GlitchTextProps) {
   const [isGlitching, setIsGlitching] = useState(false);
   const [glitchOffset, setGlitchOffset] = useState({ x: 0, y: 0 });
   const [clipPath, setClipPath] = useState("inset(0 0 0 0)");
+  const [currentText, setCurrentText] = useState(text);
 
   useEffect(() => {
     const glitchInterval = setInterval(() => {
@@ -36,16 +38,20 @@ export function GlitchText({ text, className = "" }: GlitchTextProps) {
         }, i * stepDuration);
       }
 
-      // Reset after glitch
+      // Reset after glitch and switch text if alternateText is provided
       setTimeout(() => {
         setIsGlitching(false);
         setGlitchOffset({ x: 0, y: 0 });
         setClipPath("inset(0 0 0 0)");
+
+        if (alternateText) {
+          setCurrentText(prev => prev === text ? alternateText : text);
+        }
       }, glitchDuration);
     }, 3000); // Glitch every 3 seconds
 
     return () => clearInterval(glitchInterval);
-  }, []);
+  }, [text, alternateText]);
 
   return (
     <span className={`glitch-container inline-block relative ${className}`}>
@@ -58,7 +64,7 @@ export function GlitchText({ text, className = "" }: GlitchTextProps) {
             : "translate(0, 0)",
         }}
       >
-        {text}
+        {currentText}
       </span>
 
       {/* Glitch layer 1 - Cyan */}
@@ -75,7 +81,7 @@ export function GlitchText({ text, className = "" }: GlitchTextProps) {
         }}
         aria-hidden="true"
       >
-        {text}
+        {currentText}
       </span>
 
       {/* Glitch layer 2 - Red */}
@@ -92,7 +98,7 @@ export function GlitchText({ text, className = "" }: GlitchTextProps) {
         }}
         aria-hidden="true"
       >
-        {text}
+        {currentText}
       </span>
 
       {/* Glitch layer 3 - Green */}
@@ -109,7 +115,7 @@ export function GlitchText({ text, className = "" }: GlitchTextProps) {
         }}
         aria-hidden="true"
       >
-        {text}
+        {currentText}
       </span>
     </span>
   );
