@@ -49,11 +49,11 @@ export default function Home() {
   }, [swanImages.length]);
 
   const techStack = {
-    all: ["React", "Next.js", "Node.js", "Express.js", "MongoDB", "Supabase", "Vercel", "Git", "JavaScript", "TypeScript", "Firebase", "Tailwind CSS"],
+    all: ["React", "Next.js", "Node.js", "Express.js", "Convex", "MongoDB", "Supabase", "Vercel", "Git", "JavaScript", "TypeScript", "Firebase", "Tailwind CSS", "Figma", "WordPress"],
     frontend: ["React", "Next.js", "JavaScript", "TypeScript", "Tailwind CSS"],
-    backend: ["Node.js", "Express.js"],
+    backend: ["Node.js", "Express.js", "Convex"],
     database: ["MongoDB", "Supabase", "Firebase"],
-    tools: ["Git", "Vercel"]
+    tools: ["Git", "Vercel", "Figma", "WordPress"]
   };
 
   const techLogos: { [key: string]: string } = {
@@ -68,7 +68,10 @@ export default function Home() {
     "JavaScript": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg",
     "TypeScript": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg",
     "Firebase": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg",
-    "Tailwind CSS": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg"
+    "Tailwind CSS": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg",
+    "Convex": "https://svgl.app/library/convex.svg",
+    "Figma": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg",
+    "WordPress": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/wordpress/wordpress-plain.svg"
   };
 
   const techDescriptions: { [key: string]: string } = {
@@ -83,7 +86,10 @@ export default function Home() {
     "JavaScript": "Programming language for web development",
     "TypeScript": "Typed superset of JavaScript for scalable applications",
     "Firebase": "Google's app development platform",
-    "Tailwind CSS": "Utility-first CSS framework"
+    "Tailwind CSS": "Utility-first CSS framework",
+    "Convex": "Real-time backend-as-a-service platform",
+    "Figma": "Collaborative interface design tool",
+    "WordPress": "Open source content management system"
   };
 
   const projects = [
@@ -123,10 +129,27 @@ export default function Home() {
 
   const experiences = [
     {
+      title: "Junior Full Stack Developer",
+      company: "Apetomic Studios | Remote",
+      period: "January 2026 - Present",
+      bullets: [
+        "Built full-stack web applications using Next.js and Convex backend, delivering scalable and performant solutions for diverse client needs",
+        "Developed and customized WordPress websites, implementing theme modifications, plugin configurations, and custom HTML/CSS/JavaScript solutions tailored to client requirements",
+        "Designed and integrated RESTful APIs to connect frontend interfaces with backend services, enabling dynamic data handling and third-party service integrations",
+        "Collaborated directly with clients to gather requirements, define project scope, and deliver tailored web solutions on schedule"
+      ]
+    },
+    {
       title: "Freelance Web Developer",
-      company: "Self-Employed",
-      period: "November 2025 - Present",
-      description: "Developing full-stack web applications for clients including restaurant management systems, shipping company websites with CMS integration, and custom business solutions using Next.js, MongoDB, Express.js, and modern web technologies"
+      company: "Self-Employed | Remote",
+      period: "August 2025 - January 2026",
+      bullets: [
+        "Developing full-stack web applications for clients including restaurant management systems, shipping company websites with CMS integration, and custom business solutions using Next.js, MongoDB, Express.js, and modern web technologies",
+        "Building responsive and user-friendly interfaces with React and Tailwind CSS",
+        "Implementing backend solutions with Node.js and Express.js for robust server-side functionality",
+        "Designing and managing MongoDB databases to support dynamic web applications",
+        "Collaborating directly with clients to gather requirements and deliver tailored solutions on schedule"
+      ]
     }
   ];
 
@@ -303,7 +326,7 @@ export default function Home() {
                             src={techLogos[tech]}
                             alt={tech}
                             className={`w-16 h-16 object-contain transition-all duration-300 hover:scale-110 ${
-                              tech === "Express.js" || tech === "Vercel" ? "dark:invert" : ""
+                              tech === "Express.js" || tech === "Vercel" || tech === "WordPress" ? "dark:invert" : ""
                             }`}
                           />
                         )}
@@ -463,7 +486,11 @@ export default function Home() {
                   <h3 className="text-xl font-semibold text-black dark:text-white">{exp.title}</h3>
                   <p className="text-sm font-medium text-zinc-600 dark:text-zinc-400">{exp.company}</p>
                   <p className="text-sm text-zinc-500 dark:text-zinc-500">{exp.period}</p>
-                  <p className="text-zinc-600 dark:text-zinc-400">{exp.description}</p>
+                  <ul className="list-disc list-inside space-y-1 text-zinc-600 dark:text-zinc-400">
+                    {exp.bullets.map((bullet: string, i: number) => (
+                      <li key={i}>{bullet}</li>
+                    ))}
+                  </ul>
                 </div>
               </div>
             ))}
@@ -476,7 +503,7 @@ export default function Home() {
           <Card>
             <CardContent className="pt-6">
               <ContactForm />
-              <a href="/Jerome_Magbanua_Resume.pdf" download="Jerome_Magbanua_Resume.pdf">
+              <a href="/Jerome_Magbanua-Resume.pdf" download="Jerome_Magbanua-Resume.pdf">
                 <Button variant="outline" className="w-full mt-4">
                   <Download className="mr-2 h-4 w-4" />
                   Download Resume
