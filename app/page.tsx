@@ -312,7 +312,7 @@ export default function Home() {
               <TabsTrigger value="tools" className="text-xs sm:text-sm px-2 py-2">Tools</TabsTrigger>
             </TabsList>
             {Object.entries(techStack).map(([key, technologies]) => (
-              <TabsContent key={key} value={key} className="space-y-4 animate-fadeIn">
+              <TabsContent key={key} value={key} className="mt-6 space-y-4 animate-fadeIn">
                 <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
                   {technologies.map((tech, index) => (
                     <Card
