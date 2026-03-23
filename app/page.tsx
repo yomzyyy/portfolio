@@ -8,6 +8,7 @@ import { useState, useEffect } from "react";
 import { GlitchText } from "@/components/GlitchText";
 import { ContactForm } from "@/components/ContactForm";
 import { Snowfall } from "@/components/Snowfall";
+import { AnimateOnScroll } from "@/components/AnimateOnScroll";
 import { useTheme } from "@/lib/hooks/useTheme";
 import { useSnowfall } from "@/lib/hooks/useSnowfall";
 
@@ -131,7 +132,7 @@ export default function Home() {
     {
       title: "Junior Full Stack Developer",
       company: "Apetomic Studios | Remote",
-      period: "January 2026 - Present",
+      period: "January 2026 - March 2026",
       bullets: [
         "Built full-stack web applications using Next.js and Convex backend, delivering scalable and performant solutions for diverse client needs",
         "Developed and customized WordPress websites, implementing theme modifications, plugin configurations, and custom HTML/CSS/JavaScript solutions tailored to client requirements",
@@ -312,13 +313,12 @@ export default function Home() {
               <TabsTrigger value="tools" className="text-xs sm:text-sm px-2 py-2">Tools</TabsTrigger>
             </TabsList>
             {Object.entries(techStack).map(([key, technologies]) => (
-              <TabsContent key={key} value={key} className="mt-6 space-y-4 animate-fadeIn">
+              <TabsContent key={key} value={key} className="mt-6 space-y-4">
                 <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
                   {technologies.map((tech, index) => (
+                    <AnimateOnScroll key={tech} delay={index * 50}>
                     <Card
-                      key={tech}
-                      className="animate-fadeIn transition-all duration-300 hover:shadow-xl hover:-translate-y-2 hover:scale-[1.02] cursor-pointer"
-                      style={{ animationDelay: `${index * 50}ms` }}
+                      className="transition-all duration-300 hover:shadow-xl hover:-translate-y-2 hover:scale-[1.02] cursor-pointer"
                     >
                       <CardContent className="flex flex-col items-center justify-center p-8 space-y-4">
                         {techLogos[tech] && (
@@ -340,6 +340,7 @@ export default function Home() {
                         </div>
                       </CardContent>
                     </Card>
+                    </AnimateOnScroll>
                   ))}
                 </div>
               </TabsContent>
@@ -352,8 +353,8 @@ export default function Home() {
           <h2 className="text-3xl font-bold text-black dark:text-white">Featured Projects</h2>
           <div className="space-y-12">
             {projects.map((project, index) => (
+              <AnimateOnScroll key={project.title} delay={index * 150}>
               <div
-                key={project.title}
                 className="bg-white dark:bg-zinc-900 rounded-2xl border border-zinc-200 dark:border-zinc-800 shadow-lg overflow-hidden h-full transition-all duration-300 hover:shadow-2xl hover:-translate-y-2"
               >
                 <div className="grid md:grid-cols-2 gap-0 min-h-[400px]">
@@ -471,6 +472,7 @@ export default function Home() {
                   </div>
                 </div>
               </div>
+              </AnimateOnScroll>
             ))}
           </div>
         </section>
@@ -479,20 +481,22 @@ export default function Home() {
         <section className="space-y-6">
           <h2 className="text-3xl font-bold text-black dark:text-white">Experience</h2>
           <div className="space-y-8">
-            {experiences.map((exp) => (
-              <div key={exp.title} className="relative border-l-2 border-zinc-200 pl-8 dark:border-zinc-800">
-                <div className="absolute left-[-9px] top-0 h-4 w-4 rounded-full bg-black dark:bg-white" />
-                <div className="space-y-2">
-                  <h3 className="text-xl font-semibold text-black dark:text-white">{exp.title}</h3>
-                  <p className="text-sm font-medium text-zinc-600 dark:text-zinc-400">{exp.company}</p>
-                  <p className="text-sm text-zinc-500 dark:text-zinc-500">{exp.period}</p>
-                  <ul className="list-disc list-inside space-y-1 text-zinc-600 dark:text-zinc-400">
-                    {exp.bullets.map((bullet: string, i: number) => (
-                      <li key={i}>{bullet}</li>
-                    ))}
-                  </ul>
+            {experiences.map((exp, index) => (
+              <AnimateOnScroll key={exp.title} delay={index * 150}>
+                <div className="relative border-l-2 border-zinc-200 pl-8 dark:border-zinc-800">
+                  <div className="absolute left-[-9px] top-0 h-4 w-4 rounded-full bg-black dark:bg-white" />
+                  <div className="space-y-2">
+                    <h3 className="text-xl font-semibold text-black dark:text-white">{exp.title}</h3>
+                    <p className="text-sm font-medium text-zinc-600 dark:text-zinc-400">{exp.company}</p>
+                    <p className="text-sm text-zinc-500 dark:text-zinc-500">{exp.period}</p>
+                    <ul className="list-disc list-inside space-y-1 text-zinc-600 dark:text-zinc-400">
+                      {exp.bullets.map((bullet: string, i: number) => (
+                        <li key={i}>{bullet}</li>
+                      ))}
+                    </ul>
+                  </div>
                 </div>
-              </div>
+              </AnimateOnScroll>
             ))}
           </div>
         </section>
