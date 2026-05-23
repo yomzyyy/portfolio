@@ -132,7 +132,7 @@ export default function Home() {
     {
       title: "Junior Full Stack Developer",
       company: "Apetomic Studios | Remote",
-      period: "January 2026 - March 2026",
+      period: "January 2026 - May 2026",
       bullets: [
         "Built full-stack web applications using Next.js and Convex backend, delivering scalable and performant solutions for diverse client needs",
         "Developed and customized WordPress websites, implementing theme modifications, plugin configurations, and custom HTML/CSS/JavaScript solutions tailored to client requirements",
