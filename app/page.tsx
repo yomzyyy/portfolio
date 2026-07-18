@@ -18,6 +18,7 @@ export default function Home() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [currentSwanImageIndex, setCurrentSwanImageIndex] = useState(0);
+  const [currentZoneImageIndex, setCurrentZoneImageIndex] = useState(0);
 
   const projectImages = [
     '/jais-kitchenette/jaiskitchenette.png',
@@ -31,6 +32,12 @@ export default function Home() {
     '/swan-shipping/swan02.png',
     '/swan-shipping/swan03.png',
     '/swan-shipping/swan04.png'
+  ];
+
+  const zoneImages = [
+    '/zone1.png',
+    '/zone2.png',
+    '/zone3.png'
   ];
 
   useEffect(() => {
@@ -48,6 +55,14 @@ export default function Home() {
 
     return () => clearInterval(interval);
   }, [swanImages.length]);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentZoneImageIndex((prev) => (prev + 1) % zoneImages.length);
+    }, 3000); // Change image every 3 seconds
+
+    return () => clearInterval(interval);
+  }, [zoneImages.length]);
 
   const techStack = {
     all: ["React", "Next.js", "Node.js", "Express.js", "Convex", "MongoDB", "Supabase", "Vercel", "Git", "JavaScript", "TypeScript", "Firebase", "Tailwind CSS", "Figma", "WordPress"],
@@ -124,7 +139,20 @@ export default function Home() {
         { name: "Node.js", color: "green"  }
       ],
       image: "/project2.jpg",
-      link: "#"
+      link: "https://swan-manila.vercel.app/"
+    },
+    {
+      title: "Zone — Focus Timer & Productivity Suite",
+      description: "Full-stack productivity web application that combines a Pomodoro-style focus timer, a drag-and-drop kanban board, a calendar, and an analytics dashboard into one workspace. Built local-first with optimistic Supabase sync for instant, offline-friendly interactions, plus secure authentication, per-task time tracking, and a polished light/dark interface designed for deep work.",
+      techStack: [
+        { name: "Next.js", color: "blue" },
+        { name: "React", color: "blue" },
+        { name: "TypeScript", color: "purple" },
+        { name: "Tailwind CSS", color: "cyan" },
+        { name: "Supabase", color: "green" }
+      ],
+      image: "/zone1.png",
+      link: "https://zone-olive.vercel.app/"
     }
   ];
 
@@ -441,6 +469,30 @@ export default function Home() {
                           </Button>
                         </a>
                       </div>
+                    ) : index === 2 ? (
+
+                      <div className="relative w-full h-full">
+                        <img
+                          src={zoneImages[currentZoneImageIndex]}
+                          alt={`${project.title} screenshot ${currentZoneImageIndex + 1}`}
+                          className="w-full h-full object-cover transition-opacity duration-500"
+                        />
+
+                        <a
+                          href={project.link}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="absolute top-4 right-4 z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                        >
+                          <Button
+                            variant="outline"
+                            className="bg-white/90 dark:bg-zinc-900/90 backdrop-blur-sm hover:bg-white dark:hover:bg-zinc-900 shadow-lg"
+                          >
+                            <ExternalLink className="mr-2 h-4 w-4" />
+                            Visit Site
+                          </Button>
+                        </a>
+                      </div>
                     ) : (
                       // Other projects - placeholder
                       <>
@@ -448,7 +500,7 @@ export default function Home() {
 
                         <div className="relative w-full h-full flex items-center justify-center p-8 backdrop-blur-sm">
                           <div className="text-center space-y-3">
-                            <code className="text-blue-400 dark:text-blue-300 text-sm font-mono block">// Project Screenshot</code>
+                            <code className="text-blue-400 dark:text-blue-300 text-sm font-mono block">{"// Project Screenshot"}</code>
                             <code className="text-zinc-400 dark:text-zinc-500 text-xs font-mono block">Add your code screenshot here</code>
                           </div>
                         </div>
