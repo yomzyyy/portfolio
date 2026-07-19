@@ -65,19 +65,22 @@ export default function Home() {
   }, [zoneImages.length]);
 
   const techStack = {
-    all: ["React", "Next.js", "Node.js", "Express.js", "Convex", "MongoDB", "Supabase", "Vercel", "Git", "JavaScript", "TypeScript", "Firebase", "Tailwind CSS", "Figma", "WordPress"],
-    frontend: ["React", "Next.js", "JavaScript", "TypeScript", "Tailwind CSS"],
-    backend: ["Node.js", "Express.js", "Convex"],
-    database: ["MongoDB", "Supabase", "Firebase"],
+    all: ["React", "Next.js", "Inertia.js", "Node.js", "Express.js", "Laravel", "Convex", "MongoDB", "MySQL", "Supabase", "Vercel", "Git", "JavaScript", "TypeScript", "Firebase", "Tailwind CSS", "Figma", "WordPress"],
+    frontend: ["React", "Next.js", "Inertia.js", "JavaScript", "TypeScript", "Tailwind CSS"],
+    backend: ["Node.js", "Express.js", "Laravel", "Convex"],
+    database: ["MongoDB", "MySQL", "Supabase", "Firebase"],
     tools: ["Git", "Vercel", "Figma", "WordPress"]
   };
 
   const techLogos: { [key: string]: string } = {
     "React": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg",
     "Next.js": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg",
+    "Inertia.js": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/inertiajs/inertiajs-original.svg",
     "Node.js": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg",
     "Express.js": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg",
+    "Laravel": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/laravel/laravel-original.svg",
     "MongoDB": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg",
+    "MySQL": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg",
     "Supabase": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/supabase/supabase-original.svg",
     "Vercel": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vercel/vercel-original.svg",
     "Git": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg",
@@ -93,9 +96,12 @@ export default function Home() {
   const techDescriptions: { [key: string]: string } = {
     "React": "JavaScript library for building user interfaces",
     "Next.js": "React framework for production",
+    "Inertia.js": "Build single-page apps without a separate API layer",
     "Node.js": "JavaScript runtime for server-side development",
     "Express.js": "Web application framework for Node.js",
+    "Laravel": "PHP framework for elegant web applications",
     "MongoDB": "NoSQL database for modern applications",
+    "MySQL": "Relational database management system",
     "Supabase": "Open source Firebase alternative",
     "Vercel": "Platform for frontend frameworks and static sites",
     "Git": "Distributed version control system",
@@ -130,7 +136,7 @@ export default function Home() {
       link: "https://www.jaiskitchenette.shop/"
     },
     {
-      title: "SWAN Shipping Management System",
+      title: "SWAN Shipping — Corporate Website & CMS",
       description: "Full-stack web application for maritime shipping operations featuring comprehensive admin CMS, dynamic content management, and public-facing website with hero carousel, news articles, fleet showcase, and career portal integration.",
       techStack: [
         { name: "MongoDB", color: "green" },
@@ -157,6 +163,20 @@ export default function Home() {
   ];
 
   const experiences = [
+    {
+      title: "Junior Full Stack Developer",
+      company: "Doña Alejandra Incorporated | Remote | Contract",
+      period: "May 2026 - July 2026",
+      bullets: [
+        "Built a full-stack inventory management system using Laravel 11, Inertia.js, and React with TypeScript, delivering a server-driven monolith with a feature-based, modular architecture and no separate REST API layer",
+        "Developed 30+ feature modules across procurement, inventory transactions, and system settings — including master-detail item tables, searchable combo box dropdowns, advanced search, sorting, and pagination",
+        "Engineered a reusable UI component library (buttons, forms, modals, tables, confirmation dialogs) with Tailwind CSS theming, ensuring consistent design and behavior across the entire application",
+        "Implemented role-based access control (RBAC) across five user roles, gating both backend routes and frontend navigation to enforce per-role permissions",
+        "Contributed to the backend by building Eloquent models, service layers, controllers, and database migrations following a domain-driven, layered structure with end-to-end data persistence",
+        "Designed reusable form-validation and state-management patterns using Zustand and React hooks, with mutation confirmation flows and reference-number generation for transactional records",
+        "Collaborated with the team and client to gather requirements, migrate legacy modules to full-stack pages, and deliver features on schedule"
+      ]
+    },
     {
       title: "Junior Full Stack Developer",
       company: "Apetomic Studios | Remote",
@@ -534,7 +554,7 @@ export default function Home() {
           <h2 className="text-3xl font-bold text-black dark:text-white">Experience</h2>
           <div className="space-y-8">
             {experiences.map((exp, index) => (
-              <AnimateOnScroll key={exp.title} delay={index * 150}>
+              <AnimateOnScroll key={`${exp.title}-${exp.company}`} delay={index * 150}>
                 <div className="relative border-l-2 border-zinc-200 pl-8 dark:border-zinc-800">
                   <div className="absolute left-[-9px] top-0 h-4 w-4 rounded-full bg-black dark:bg-white" />
                   <div className="space-y-2">
